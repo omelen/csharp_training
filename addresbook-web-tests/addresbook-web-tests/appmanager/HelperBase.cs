@@ -24,6 +24,9 @@ namespace WebAddressbookTests
                 return false;
             }
         }
-
+        public void AcceptAlert()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
     }
 }

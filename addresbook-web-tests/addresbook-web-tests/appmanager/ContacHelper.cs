@@ -1,9 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using System.Text.RegularExpressions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
@@ -12,6 +10,36 @@ namespace WebAddressbookTests
         public ContacHelper(ApplicationManager manager)
             :base(manager)
         {
+        }
+
+        public ContacHelper Remove(int v)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            RemoveContact();
+            AcceptAlert();
+            return this;
+        }
+
+        public ContacHelper Modify(int v, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            InitContactModification();
+            FillContactForm(newData);
+            SubmitContactModification();
+            return this;
+        }
+
+        public ContacHelper SubmitContactModification()
+        {driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContacHelper InitContactModification()
+        {
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            return this;
         }
 
         public ContacHelper InitContactCreation()
@@ -30,6 +58,18 @@ namespace WebAddressbookTests
         public ContacHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
+
+        public ContacHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContacHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
     }
