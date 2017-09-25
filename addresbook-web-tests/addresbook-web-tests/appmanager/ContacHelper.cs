@@ -15,6 +15,13 @@ namespace WebAddressbookTests
         public ContacHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
+            if (!IsAnyContactPresent())
+            {
+                InitContactCreation()
+                .FillContactForm(new ContactData("qqq", "111"))
+                .SubmitContactCreation();
+                manager.Navigator.GoToHomePage();
+            }
             SelectContact(v);
             RemoveContact();
             AcceptAlert();
@@ -24,11 +31,23 @@ namespace WebAddressbookTests
         public ContacHelper Modify(int v, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
+            if (!IsAnyContactPresent())
+            {
+                InitContactCreation()
+                .FillContactForm(new ContactData("qqq", "111"))
+                .SubmitContactCreation();
+                manager.Navigator.GoToHomePage();
+            }
             SelectContact(v);
             InitContactModification();
             FillContactForm(newData);
             SubmitContactModification();
             return this;
+        }
+
+        private bool IsAnyContactPresent()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
 
         public ContacHelper SubmitContactModification()
@@ -49,10 +68,8 @@ namespace WebAddressbookTests
         }
         public ContacHelper FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
         public ContacHelper SubmitContactCreation()

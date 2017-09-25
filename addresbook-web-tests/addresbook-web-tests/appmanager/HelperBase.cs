@@ -12,7 +12,7 @@ namespace WebAddressbookTests
             this.manager = manager;
             driver = manager.Driver;
         }
-        private bool IsElementPresent(By by)
+        public bool IsElementPresent(By by)
         {
             try
             {
@@ -27,6 +27,15 @@ namespace WebAddressbookTests
         public void AcceptAlert()
         {
             driver.SwitchTo().Alert().Accept();
+        }
+
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
         }
     }
 }
