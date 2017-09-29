@@ -18,7 +18,7 @@ namespace WebAddressbookTests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
-        protected ContacHelper contactHelper;
+        protected ContactHelper contactHelper;
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -33,7 +33,7 @@ namespace WebAddressbookTests
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
-            contactHelper = new ContacHelper(this);
+            contactHelper = new ContactHelper(this);
         }
 
         ~ApplicationManager()
@@ -91,7 +91,7 @@ namespace WebAddressbookTests
                 return groupHelper;
             }
         }
-        public ContacHelper Contacts
+        public ContactHelper Contacts
         {
             get
             {

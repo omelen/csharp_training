@@ -10,10 +10,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Contacts
-                .InitContactCreation()
-                .FillContactForm(new ContactData("qqq", "111"))
-                .SubmitContactCreation();
+            app.Contacts.Create(new ContactData("qqq", "111"));
             app.Auth.Logout();
         }
     }

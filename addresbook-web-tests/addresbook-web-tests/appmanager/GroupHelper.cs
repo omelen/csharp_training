@@ -33,15 +33,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-
-            if (!IsAnyGroupPresent())
-            {
-                GroupData group = new GroupData("");
-                group.Header = "";
-                group.Footer = "";
-                Create(group);
-            }
-            
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -50,7 +41,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private bool IsAnyGroupPresent()
+        public bool IsAnyGroupPresent()
         {
             return IsElementPresent(By.Name("selected[]"));
         }
