@@ -17,13 +17,6 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
-            if (!IsAnyGroupPresent())
-            {
-                GroupData group = new GroupData("");
-                group.Header = "";
-                group.Footer = "";
-                Create(group);
-            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();

@@ -15,10 +15,8 @@ namespace WebAddressbookTests.tests
         {
             if (!app.Contacts.IsAnyContactPresent())
             {
-                app.Contacts
-                .InitContactCreation()
-                .FillContactForm(new ContactData("qqq", "111"))
-                .SubmitContactCreation();
+                ContactData contact = new ContactData("S", "M");
+                app.Contacts.Create(contact);
             }
             app.Contacts.Remove(1);
             app.Auth.Logout();
