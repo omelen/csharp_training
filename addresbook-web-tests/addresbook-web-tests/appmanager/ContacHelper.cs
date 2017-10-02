@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using System.Text.RegularExpressions;
 using System;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -28,6 +29,7 @@ namespace WebAddressbookTests
             SelectContact(v);
             RemoveContact();
             AcceptAlert();
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
@@ -39,6 +41,19 @@ namespace WebAddressbookTests
             SubmitContactModification();
             ReturnToContactsPage();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=entry]"));
+            foreach (IWebElement element in elements)
+            {
+                IWebElement lastName = element.FindElement(By.CssSelector("td:nth-child(2)"));
+                IWebElement firstName = element.FindElement(By.CssSelector("td:nth-child(3)"));
+                contacts.Add(new ContactData(firstName.Text, lastName.Text));
+            }
+            return contacts;
         }
 
         public bool IsAnyContactPresent()

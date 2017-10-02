@@ -18,7 +18,12 @@ namespace WebAddressbookTests.tests
                 ContactData contact = new ContactData("S", "M");
                 app.Contacts.Create(contact);
             }
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Remove(1);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.RemoveAt(0);
+            Assert.AreEqual(oldContacts, newContacts);
             app.Auth.Logout();
         }
     }
