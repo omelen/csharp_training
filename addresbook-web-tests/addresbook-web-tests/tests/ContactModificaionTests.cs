@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 
-namespace WebAddressbookTests.tests
+namespace WebAddressbookTests
 {
     [TestFixture]
     public class ContactModificaionTests : AuthTestBase
@@ -26,7 +26,7 @@ namespace WebAddressbookTests.tests
 
             ContactData oldData = oldContacts[0];
 
-            app.Contacts.Modify(1, newData);
+            app.Contacts.Modify(0, newData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;
