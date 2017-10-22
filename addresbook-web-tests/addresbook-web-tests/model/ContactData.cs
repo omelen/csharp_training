@@ -10,6 +10,8 @@ namespace WebAddressbookTests
     {
         private string allPhones;
 
+        private string detailsString;
+
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -45,6 +47,55 @@ namespace WebAddressbookTests
             set
             {
                 allPhones = value;
+            }
+        }
+
+        public string DetailsString
+        {
+            get
+            {
+                if(detailsString != null)
+                {
+                    return detailsString;
+                }
+                else
+                {
+                    string result = "";
+
+                    if (!string.IsNullOrEmpty(Firstname))
+                    {
+                        result = Firstname;
+                    }
+                    if (!string.IsNullOrEmpty(Lastname))
+                    {
+                        result = result + " " + Lastname;
+                    }
+                    if (!string.IsNullOrEmpty(Adress))
+                    {
+                        result += "\r\n" + Adress;
+                    }
+
+                    result += "\r\n";
+
+                    if (!string.IsNullOrEmpty(HomePhone))
+                    {
+                        result += "\r\nH: " + HomePhone;
+                    }
+                    if (!string.IsNullOrEmpty(MobilePhone))
+                    {
+                        result += "\r\nM: " + MobilePhone;
+                    }
+                    if (!string.IsNullOrEmpty(WorkPhone))
+                    {
+                        result += "\r\nW: " + WorkPhone;
+                    }
+
+                    return result.Trim();
+                }
+            }
+            set
+            {
+                detailsString = value;
             }
         }
 

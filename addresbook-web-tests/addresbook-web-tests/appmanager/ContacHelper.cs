@@ -41,10 +41,10 @@ namespace WebAddressbookTests
             };
         }
 
-        internal ContactData GetContactInformationFromEditForm(int index)
+        public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -60,6 +60,15 @@ namespace WebAddressbookTests
                 MobilePhone = mobilePhone,
                 WorkPhone= workPhone
             };
+        }
+
+        public string GetContactInformatonFromDetailsPage(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            manager.Navigator.GoToContactDetailsPage(index);
+
+            string contactDetails = driver.FindElement(By.Id("content")).Text;
+            return contactDetails.Trim();
         }
 
         public ContactHelper Remove(int v)
