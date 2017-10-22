@@ -22,7 +22,7 @@ namespace WebAddressbookTests
 
         public string Lastname { get; set; }
 
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         public string HomePhone { get; set; }
 
@@ -70,9 +70,9 @@ namespace WebAddressbookTests
                     {
                         result = result + " " + Lastname;
                     }
-                    if (!string.IsNullOrEmpty(Adress))
+                    if (!string.IsNullOrEmpty(Address))
                     {
-                        result += "\r\n" + Adress;
+                        result += "\r\n" + Address;
                     }
 
                     result += "\r\n";
@@ -145,7 +145,12 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "fistname=" + Firstname + " lastname=" + Lastname;
+            return "Firstname=" + Firstname 
+                + "\r\nLastname=" + Lastname
+                + "\r\nAdress=" + Address
+                + "\r\nHomePhone=" + HomePhone
+                + "\r\nWorkPhone=" + WorkPhone
+                + "\r\nMobilePhone=" + MobilePhone;
         }
     }
 }

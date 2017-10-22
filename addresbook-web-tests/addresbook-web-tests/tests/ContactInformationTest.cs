@@ -20,7 +20,7 @@ namespace WebAddressbookTests
 
             //verifiction
             Assert.AreEqual(fromTable, fromForm);
-            Assert.AreEqual(fromTable.Adress, fromForm.Adress);
+            Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
         }
 

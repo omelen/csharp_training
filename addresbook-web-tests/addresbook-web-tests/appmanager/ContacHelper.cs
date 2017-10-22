@@ -36,7 +36,7 @@ namespace WebAddressbookTests
 
             return new ContactData(firstName, lastName)
             {
-                Adress = adress,
+                Address = adress,
                 AllPhones = allPhones
             };
         }
@@ -55,7 +55,7 @@ namespace WebAddressbookTests
 
             return new ContactData(firstName, lastName)
             {
-                Adress = address,
+                Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone= workPhone
