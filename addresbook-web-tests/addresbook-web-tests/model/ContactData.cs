@@ -30,6 +30,8 @@ namespace WebAddressbookTests
 
         public string WorkPhone { get; set; }
 
+        public string Email { get; set; }
+
         public string AllPhones
         {
             get
@@ -88,6 +90,13 @@ namespace WebAddressbookTests
                     if (!string.IsNullOrEmpty(WorkPhone))
                     {
                         result += "\r\nW: " + WorkPhone;
+                    }
+
+                    result += "\r\n";
+
+                    if (!string.IsNullOrEmpty(Email))
+                    {
+                        result += "\r\n" + Email;
                     }
 
                     return result.Trim();

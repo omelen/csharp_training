@@ -49,6 +49,7 @@ namespace WebAddressbookTests
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
@@ -58,7 +59,8 @@ namespace WebAddressbookTests
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone= workPhone
+                WorkPhone= workPhone,
+                Email = email
             };
         }
 
