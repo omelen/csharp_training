@@ -17,14 +17,14 @@ namespace WebAddressbookTests
         {
             Name = name;
         }
-        
+
         public bool Equals(GroupData other)
         {
-            if(Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return false;
             }
-            if(Object.ReferenceEquals(this, other))
+            if (Object.ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -45,7 +45,7 @@ namespace WebAddressbookTests
 
         public int CompareTo(GroupData other)
         {
-            if(Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
@@ -53,7 +53,7 @@ namespace WebAddressbookTests
         }
 
         [Column("group_id", IsPrimaryKey = true, IsIdentity = true)]
-        public string Id {get; set;}
+        public string Id { get; set; }
 
         [Column("group_name")]
         public string Name { get; set; }
@@ -69,9 +69,19 @@ namespace WebAddressbookTests
 
         public static List<GroupData> GetAll()
         {
-            using(AddressBookDb db = new AddressBookDb())
+            using (AddressBookDb db = new AddressBookDb())
             {
                 return (from g in db.Groups.Where(x => x.Deprecated == "0000-00-00 00:00:00") select g).ToList();
+            }
+        }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDb db = new AddressBookDb())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00")
+                        from gcr in db.GCR.Where(rel => rel.GroupId == Id && rel.ContactId == c.Id)
+                        select c).Distinct().ToList();
             }
         }
     }
