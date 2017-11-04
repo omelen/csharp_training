@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
+    [Table("addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -21,19 +23,32 @@ namespace WebAddressbookTests
             Lastname = lastname;
         }
 
+        [Column("id", IsPrimaryKey = true, IsIdentity = true)]
+        public string Id { get; set; }
+
+        [Column("firstname")]
         public string Firstname { get; set; }
 
+        [Column("lastname")]
         public string Lastname { get; set; }
 
+        [Column("address")]
         public string Address { get; set; }
 
+        [Column("home")]
         public string HomePhone { get; set; }
 
+        [Column("mobile")]
         public string MobilePhone { get; set; }
 
+        [Column("work")]
         public string WorkPhone { get; set; }
 
+        [Column("email")]
         public string Email { get; set; }
+
+        [Column("deprecated")]
+        public string Deprecated { get; set; }
 
         public string AllPhones
         {
@@ -120,8 +135,6 @@ namespace WebAddressbookTests
             return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
-        public string Id { get; set; }
-
         public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -163,6 +176,14 @@ namespace WebAddressbookTests
                 + "\r\nHomePhone=" + HomePhone
                 + "\r\nWorkPhone=" + WorkPhone
                 + "\r\nMobilePhone=" + MobilePhone;
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDb db = new AddressBookDb())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
         }
     }
 }

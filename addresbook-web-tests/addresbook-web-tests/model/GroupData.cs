@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
+    [Table("group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         public GroupData()
@@ -50,9 +52,27 @@ namespace WebAddressbookTests
             return Name.CompareTo(other.Name);
         }
 
-        public string Name { get; set; }
-        public string Header { get; set; }
-        public string Footer { get; set; }
+        [Column("group_id", IsPrimaryKey = true, IsIdentity = true)]
         public string Id {get; set;}
+
+        [Column("group_name")]
+        public string Name { get; set; }
+
+        [Column("group_header")]
+        public string Header { get; set; }
+
+        [Column("group_footer")]
+        public string Footer { get; set; }
+
+        [Column("deprecated")]
+        public string Deprecated { get; set; }
+
+        public static List<GroupData> GetAll()
+        {
+            using(AddressBookDb db = new AddressBookDb())
+            {
+                return (from g in db.Groups.Where(x => x.Deprecated == "0000-00-00 00:00:00") select g).ToList();
+            }
+        }
     }
 }
